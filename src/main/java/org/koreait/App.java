@@ -22,13 +22,18 @@ public class App {
             if (cmd.equals("exit")) {
                 systemController.exit();
                 break;
-            } else if (cmd.length() == 0) {
+            }
+            if (cmd.length() == 0) {
                 System.out.println("명령어 입력해");
                 continue;
             }
             if (cmd.equals("add")) {
                 motivationController.add();
-            } else if (cmd.equals("list")) {
+            }
+            else if (cmd.equals("delete")){
+                motivationController.delete();
+            }
+            else if (cmd.equals("list")) {
                 motivationController.list();
             }
         }

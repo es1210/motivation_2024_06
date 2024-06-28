@@ -29,6 +29,19 @@ public class MotivationController {
             System.out.printf("%d번 motivation이 등록 되었습니다\n", id);
             lastId++; // 마지막 번호 증가
         }
+        public void delete(){
+            System.out.print("delete?id = ");
+
+            String id = Container.getScanner().nextLine();
+            if(motivations.get(Integer.parseInt(id)-1) == null){
+                System.out.printf("%d는 이미 삭제됨",Integer.parseInt(id));
+            }
+            motivations.remove(Integer.parseInt(id)-1);
+            System.out.printf("%d번 motivation이 삭제되었습니다\n",Integer.parseInt(id));
+        }
+
+
+
         public void list() {
             if (motivations.size() == 0) {
                 System.out.println("등록된 motivation 없음");
