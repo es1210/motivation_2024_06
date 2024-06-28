@@ -1,61 +1,62 @@
 package org.koreait;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 public class App {
-
     private Scanner sc;
-    private String[] motivations;
-    private String[] sources;
-    private int count;
 
     public App(Scanner sc) {
         this.sc = sc;
-        this.motivations = new String[100]; // 충분히 큰 크기로 초기화
-        this.sources = new String[100];     // 충분히 큰 크기로 초기화
-        this.count = 0;
     }
 
     public void run() {
-        System.out.println("== motivation 실행 ==");
+        System.out.println("== motivation execution ==");
+        int lastId = 0; // 몇 번까지 썼더라?
+        List<Motivation> motivations = new ArrayList<>(); // motivation 저장소
 
         while (true) {
-            System.out.print("명령어) ");
+            System.out.print("command) ");
             String cmd = sc.nextLine().trim();
-
             if (cmd.equals("exit")) {
-                System.out.println("== motivation 종료 ==");
+                System.out.println("== motivation end ==");
                 break;
             } else if (cmd.length() == 0) {
-                System.out.println("명령어 입력 필요");
+                System.out.println("명령어 입력해");
                 continue;
             }
-
-            // add 기능 부분
             if (cmd.equals("add")) {
-                System.out.print("motivation : ");
-                String motivation = sc.nextLine();
+                int id = lastId + 1;
+                System.out.print("body : ");
+                String body = sc.nextLine();
                 System.out.print("source : ");
                 String source = sc.nextLine();
-                count++;
-                motivations[count - 1] = motivation;
-                sources[count - 1] = source;
-                System.out.printf("%d번 motivation이 등록 되었습니다\n", count);
+
+                Motivation motivation = new Motivation(id, body, source);
+                motivations.add(motivation);
+                System.out.printf("%d번 motivation이 등록 되었습니다\n", id);
+                lastId++; // 마지막 번호 증가
+            } else if (cmd.equals("list")) {
+                if (motivations.size() == 0) {
+                    System.out.println("등록된 motivation 없음");
+                    continue;
+                }
+                System.out.println("== motivation list ==");
+                System.out.printf("  id   //   source   //   body  \n");
+                System.out.println("=".repeat(35));
+
+                for (int i = motivations.size() - 1; i >= 0; i--) {
+                    Motivation motivation = motivations.get(i);
+
+                    if (motivation.getSource().length() > 7) {
+                        System.out.printf("   %d  //    %s    //    %s  \n", motivation.getId(), motivation.getSource().substring(0, 5) + "...", motivation.getBody());
+                        continue;
+                    }
+
+                    System.out.printf("   %d  //    %s     //    %s  \n", motivation.getId(), motivation.getSource(), motivation.getBody());
+                }
             }
-
-            // list 기능 부분
-            else if (cmd.equals("list")) {
-                printMotivations();
-            }
-        }
-    }
-
-
-
-    private void printMotivations() {
-        System.out.println(" id   //   motivation   // source");
-        for (int i = 0; i < count; i++) {
-            System.out.printf("  %d   //   %s   // %s\n", i + 1, motivations[i], sources[i]);
         }
     }
 }
