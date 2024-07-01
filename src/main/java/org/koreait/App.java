@@ -18,6 +18,7 @@ public class App {
             if (rq.getErrMsg().equals("오타 있음(id)")) {
                 continue;
             }
+            //라우터 기능 (맞는기능을 연결해주는 역할)
             switch (rq.getActionMethod()) {
                 case "exit":
                     systemController.exit();

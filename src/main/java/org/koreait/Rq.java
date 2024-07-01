@@ -13,8 +13,9 @@ public class Rq {
                 ", params=" + params +
                 '}';
     }
-
+    //명령어 가공역할, 요청에 대한 처리를 함
     //Rq == Request
+    //생성자는 new 할때 자동실행되는 ,,
     public Rq(String cmd) {
         // parsing
         String[] cmdBits = cmd .split("\\?", 2);
