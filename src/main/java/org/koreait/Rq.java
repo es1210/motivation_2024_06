@@ -17,7 +17,7 @@ public class Rq {
     //Rq == Request
     public Rq(String cmd) {
         // parsing
-        String[] cmdBits = cmd.split("\\?", 2);
+        String[] cmdBits = cmd .split("\\?", 2);
         actionMethod = cmdBits[0];
         params = new HashMap<>();
         if (cmdBits.length == 1) {
@@ -54,3 +54,4 @@ public class Rq {
         return errMsg;
     }
 }
+
